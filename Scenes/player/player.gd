@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 100.0
-const ACCELERATION = 600.0
+const ACCELERATION = 800.0
 const FRICTION = 1000.0
 const JUMP_VELOCITY = -300.0
 
@@ -30,7 +30,7 @@ func handle_jump() -> void:
 func handle_movement(delta: float) -> void:
 	var input_axis := Input.get_axis("ui_left", "ui_right")
 
-	apply_acceleration(input_axis, delta)
+	handle_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
 
 	move_and_slide()
@@ -39,6 +39,6 @@ func apply_friction(input_axis: float, delta: float) -> void:
 	if input_axis != 0: return
 	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 
-func apply_acceleration(input_axis: float, delta: float) -> void:
+func handle_acceleration(input_axis: float, delta: float) -> void:
 	if input_axis == 0: return
 	velocity.x = move_toward(velocity.x, SPEED * input_axis, ACCELERATION * delta)
