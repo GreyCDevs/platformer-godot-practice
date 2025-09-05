@@ -1,0 +1,38 @@
+extends CharacterBody2D
+
+
+const SPEED = 100.0
+const ACCELERATION = 600.0
+const FRICTION = 1000.0
+const JUMP_VELOCITY = -300.0
+
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	handle_jump()
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	handle_movement(delta)
+
+
+func handle_jump() -> void:
+	if not is_on_floor(): return
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_released("ui_accept"):
+		velocity.y = JUMP_VELOCITY / 2		
+
+
+func handle_movement(delta: float) -> void:
+	var direction := Input.get_axis("ui_left", "ui_right")
+	if direction != 0:
+		velocity.x = move_toward(velocity.x, SPEED * direction, ACCELERATION * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	move_and_slide()
