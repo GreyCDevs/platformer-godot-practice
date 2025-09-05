@@ -1,10 +1,6 @@
 extends CharacterBody2D
 
-
-const SPEED = 100.0
-const ACCELERATION = 800.0
-const FRICTION = 1000.0
-const JUMP_VELOCITY = -300.0
+@export var movement_data: PlayerMovementData
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyote_jump_timer: Timer = $CoyoteJumpTimer
@@ -30,9 +26,10 @@ func apply_gravity(delta: float) -> void:
 func handle_jump() -> void:
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0: 
 		if Input.is_action_just_pressed("ui_up"):
-			velocity.y = JUMP_VELOCITY 
-		if not is_on_floor() and (Input.is_action_just_released("ui_up") and velocity.y < JUMP_VELOCITY / 2):
-			velocity.y = JUMP_VELOCITY / 2		
+			velocity.y = movement_data.jump_velocity 
+	if not is_on_floor():
+		if  (Input.is_action_just_released("ui_up") and velocity.y < movement_data.jump_velocity / 2):
+			velocity.y = movement_data.jump_velocity / 2		
 
 func handle_movement(input_axis: float, delta: float) -> void:
 	handle_acceleration(input_axis, delta)
@@ -40,11 +37,11 @@ func handle_movement(input_axis: float, delta: float) -> void:
 
 func apply_friction(input_axis: float, delta: float) -> void:
 	if input_axis != 0: return
-	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	velocity.x = move_toward(velocity.x, 0, movement_data.friction * delta)
 
 func handle_acceleration(input_axis: float, delta: float) -> void:
 	if input_axis == 0: return
-	velocity.x = move_toward(velocity.x, SPEED * input_axis, ACCELERATION * delta)
+	velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration * delta)
 
 func update_animations(input_axis: float) -> void:
 	if input_axis != 0:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://1rrvx57k2cva"]
+[gd_scene load_steps=15 format=3 uid="uid://1rrvx57k2cva"]
 
 [ext_resource type="Script" uid="uid://c1ojh4klimek5" path="res://Scenes/player/player.gd" id="1_eo61r"]
 [ext_resource type="Texture2D" uid="uid://bmnekjnrvdpko" path="res://Scenes/player/player.png" id="2_eo61r"]
+[ext_resource type="Resource" uid="uid://7l8un81kpk71" path="res://Scenes/player/DefaultMovementData.tres" id="2_mxepk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eo61r"]
 atlas = ExtResource("2_eo61r")
@@ -88,8 +89,9 @@ script/source = "extends CollisionShape2D
 position = Vector2(-8, -8)
 floor_constant_speed = true
 floor_max_angle = 1.0472
-floor_snap_length = 2.0
+floor_snap_length = 3.0
 script = ExtResource("1_eo61r")
+movement_data = ExtResource("2_mxepk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(8, -2)
