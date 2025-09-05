@@ -10,7 +10,7 @@ func _physics_process(delta: float) -> void:
 	
 	apply_gravity(delta)
 	handle_jump()
-	handle_movement(input_axis, delta)
+	handle_movement(input_axis)
 	update_animations(input_axis)
 	var was_on_floor = is_on_floor()
 	move_and_slide()
@@ -31,20 +31,20 @@ func handle_jump() -> void:
 		if  (Input.is_action_just_released("ui_up") and velocity.y < movement_data.jump_velocity / 2):
 			velocity.y = movement_data.jump_velocity / 2		
 
-func handle_movement(input_axis: float, delta: float) -> void:
-	handle_acceleration(input_axis, delta)
-	apply_friction(input_axis, delta)
-	apply_air_resistance(input_axis, delta)
+func handle_movement(input_axis: float) -> void:
+	handle_acceleration(input_axis)
+	apply_friction(input_axis)
+	apply_air_resistance(input_axis)
 
-func apply_friction(input_axis: float, delta: float) -> void:
+func apply_friction(input_axis: float) -> void:
 	if input_axis == 0 and is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, movement_data.friction)
 
-func apply_air_resistance(input_axis: float, delta: float) -> void:
+func apply_air_resistance(input_axis: float) -> void:
 	if input_axis == 0 and not is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance)
 
-func handle_acceleration(input_axis: float, delta: float) -> void:
+func handle_acceleration(input_axis: float) -> void:
 	if input_axis == 0: return
 	velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration)
 
