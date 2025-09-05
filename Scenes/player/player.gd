@@ -8,17 +8,15 @@ const JUMP_VELOCITY = -300.0
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# Handle jump.
+	apply_gravity(delta)
+	
 	handle_jump()
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	handle_movement(delta)
 
+func apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
 func handle_jump() -> void:
 	if not is_on_floor(): 
@@ -30,9 +28,14 @@ func handle_jump() -> void:
 
 
 func handle_movement(delta: float) -> void:
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction != 0:
-		velocity.x = move_toward(velocity.x, SPEED * direction, ACCELERATION * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	var input_axis := Input.get_axis("ui_left", "ui_right")
+	
+	apply_friction(input_axis, delta)
+
 	move_and_slide()
+
+func apply_friction(input_axis: float, delta: float) -> void:
+	if input_axis == 0:
+		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	else:
+		velocity.x = move_toward(velocity.x, SPEED * input_axis, ACCELERATION * delta)
