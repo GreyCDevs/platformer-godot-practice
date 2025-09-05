@@ -21,12 +21,12 @@ func _physics_process(delta: float) -> void:
 
 
 func handle_jump() -> void:
-	if not is_on_floor(): return
-	
-	if Input.is_action_just_pressed("ui_accept"):
-		velocity.y = JUMP_VELOCITY
-	elif Input.is_action_just_released("ui_accept"):
-		velocity.y = JUMP_VELOCITY / 2		
+	if not is_on_floor(): 
+		if Input.is_action_just_released("ui_accept") and velocity.y < 0:
+			velocity.y = JUMP_VELOCITY / 2		
+	else: 
+		if Input.is_action_just_pressed("ui_accept"):
+			velocity.y = JUMP_VELOCITY
 
 
 func handle_movement(delta: float) -> void:
