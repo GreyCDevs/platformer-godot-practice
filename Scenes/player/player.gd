@@ -7,7 +7,7 @@ const FRICTION = 1000.0
 const JUMP_VELOCITY = -300.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
+@onready var coyote_jump_timer: Timer = $CoyoteJumpTimer
 
 func _physics_process(delta: float) -> void:
 	var input_axis := Input.get_axis("ui_left", "ui_right")
@@ -16,20 +16,23 @@ func _physics_process(delta: float) -> void:
 	handle_jump()
 	handle_movement(input_axis, delta)
 	update_animations(input_axis)
+	var was_on_floor = is_on_floor()
 	move_and_slide()
+	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
+	
+	if just_left_ledge:
+		coyote_jump_timer.start()
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 func handle_jump() -> void:
-	if not is_on_floor(): 
-		if Input.is_action_just_released("ui_up") and velocity.y < JUMP_VELOCITY / 2:
-			velocity.y = JUMP_VELOCITY / 2		
-	else: 
+	if is_on_floor() or coyote_jump_timer.time_left > 0.0: 
 		if Input.is_action_just_pressed("ui_up"):
-			velocity.y = JUMP_VELOCITY
-
+			velocity.y = JUMP_VELOCITY 
+		if not is_on_floor() and (Input.is_action_just_released("ui_up") and velocity.y < JUMP_VELOCITY / 2):
+			velocity.y = JUMP_VELOCITY / 2		
 
 func handle_movement(input_axis: float, delta: float) -> void:
 	handle_acceleration(input_axis, delta)
