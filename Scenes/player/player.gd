@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * movement_data.gravity_scale * delta
 
 func handle_jump() -> void:
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0: 
@@ -34,14 +34,19 @@ func handle_jump() -> void:
 func handle_movement(input_axis: float, delta: float) -> void:
 	handle_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
+	apply_air_resistance(input_axis, delta)
 
 func apply_friction(input_axis: float, delta: float) -> void:
-	if input_axis != 0: return
-	velocity.x = move_toward(velocity.x, 0, movement_data.friction * delta)
+	if input_axis == 0 and is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, movement_data.friction)
+
+func apply_air_resistance(input_axis: float, delta: float) -> void:
+	if input_axis == 0 and not is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance)
 
 func handle_acceleration(input_axis: float, delta: float) -> void:
 	if input_axis == 0: return
-	velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration * delta)
+	velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration)
 
 func update_animations(input_axis: float) -> void:
 	if input_axis != 0:
