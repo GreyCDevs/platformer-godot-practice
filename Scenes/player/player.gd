@@ -29,13 +29,16 @@ func handle_jump() -> void:
 
 func handle_movement(delta: float) -> void:
 	var input_axis := Input.get_axis("ui_left", "ui_right")
-	
+
+	apply_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
 
 	move_and_slide()
 
 func apply_friction(input_axis: float, delta: float) -> void:
-	if input_axis == 0:
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
-	else:
-		velocity.x = move_toward(velocity.x, SPEED * input_axis, ACCELERATION * delta)
+	if input_axis != 0: return
+	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+
+func apply_acceleration(input_axis: float, delta: float) -> void:
+	if input_axis == 0: return
+	velocity.x = move_toward(velocity.x, SPEED * input_axis, ACCELERATION * delta)
