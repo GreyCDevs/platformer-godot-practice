@@ -6,3 +6,4 @@ extends Node2D
 
 func _ready() -> void:
 	polygon_2d.polygon = collision_polygon_2d.polygon
+	RenderingServer.set_default_clear_color("black")
