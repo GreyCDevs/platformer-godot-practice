@@ -24,10 +24,10 @@ func apply_gravity(delta: float) -> void:
 
 func handle_jump() -> void:
 	if not is_on_floor(): 
-		if Input.is_action_just_released("ui_accept") and velocity.y < JUMP_VELOCITY / 2:
+		if Input.is_action_just_released("ui_up") and velocity.y < JUMP_VELOCITY / 2:
 			velocity.y = JUMP_VELOCITY / 2		
 	else: 
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_pressed("ui_up"):
 			velocity.y = JUMP_VELOCITY
 
 
