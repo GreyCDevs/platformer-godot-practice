@@ -90,3 +90,7 @@ func update_animations(input_axis: float) -> void:
 
 func handle_character_orientation (input_axis: float) -> void:
 	animated_sprite_2d.flip_h = input_axis < 0
+
+
+func _on_hazard_detector_area_entered(area: Area2D) -> void:
+	queue_free()
