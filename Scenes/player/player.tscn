@@ -98,6 +98,10 @@ position = Vector2(8, -2)
 sprite_frames = SubResource("SpriteFrames_t3oqc")
 animation = &"idle"
 
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+position = Vector2(0, -30)
+scale = Vector2(1, 1)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, -0.0714254)
 scale = Vector2(1.07143, 1.07143)
