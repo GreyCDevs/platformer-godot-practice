@@ -35,17 +35,16 @@ offset_right = 7.0
 offset_bottom = 20.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Spikes2" parent="." instance=ExtResource("3_1fp7r")]
+[node name="Hazards" type="Node" parent="."]
+
+[node name="Spikes2" parent="Hazards" instance=ExtResource("3_1fp7r")]
 position = Vector2(128, 160)
 
-[node name="Spikes3" parent="." instance=ExtResource("3_1fp7r")]
+[node name="Spikes3" parent="Hazards" instance=ExtResource("3_1fp7r")]
 position = Vector2(136, 160)
 
-[node name="Spikes4" parent="." instance=ExtResource("3_1fp7r")]
+[node name="Spikes4" parent="Hazards" instance=ExtResource("3_1fp7r")]
 position = Vector2(313, 88)
 
-[node name="Spikes5" parent="." instance=ExtResource("3_1fp7r")]
+[node name="Spikes5" parent="Hazards" instance=ExtResource("3_1fp7r")]
 position = Vector2(329, 88)
-
-[node name="Spikes6" parent="." instance=ExtResource("3_1fp7r")]
-position = Vector2(26, 111)
