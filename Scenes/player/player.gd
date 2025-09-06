@@ -15,9 +15,8 @@ func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	handle_wall_jump()
 	handle_jump()
-	
 	handle_movement(input_axis, delta)
-	update_animations(input_axis)
+	
 	var was_on_floor = is_on_floor()
 	move_and_slide()
 	var just_left_ledge = was_on_floor and not is_on_floor() and velocity.y >= 0
@@ -26,6 +25,7 @@ func _physics_process(delta: float) -> void:
 		coyote_jump_timer.start()
 
 	just_wall_jumped = false	
+	update_animations(input_axis)
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
