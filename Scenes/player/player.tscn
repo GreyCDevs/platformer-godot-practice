@@ -113,6 +113,9 @@ wait_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -40)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="HazardDetector" type="Area2D" parent="."]
 position = Vector2(-8, -8)
