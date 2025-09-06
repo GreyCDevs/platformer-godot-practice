@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://qvf4ea06wf2a"]
+
+[ext_resource type="Script" uid="uid://dcbwj3mc75n72" path="res://scenes/world/world.gd" id="1_wx2y6"]
+[ext_resource type="PackedScene" uid="uid://1rrvx57k2cva" path="res://scenes/player/player.tscn" id="2_dcncw"]
+[ext_resource type="PackedScene" uid="uid://romfrcc8qrho" path="res://scenes/ui/level/level_completed.tscn" id="5_vtms1"]
+[ext_resource type="PackedScene" uid="uid://bimx81jm3ddyv" path="res://scenes/tilemap/tilemap.tscn" id="6_k8b1u"]
+
+[node name="WorldTemplate" type="Node2D"]
+script = ExtResource("1_wx2y6")
+
+[node name="player" parent="." instance=ExtResource("2_dcncw")]
+
+[node name="Hazards" type="Node" parent="."]
+
+[node name="Collectibles" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LevelCompleted" parent="CanvasLayer" instance=ExtResource("5_vtms1")]
+visible = false
+
+[node name="LevelTileMap" parent="." instance=ExtResource("6_k8b1u")]
