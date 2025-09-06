@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://q67b1f5uuoha"]
+[gd_scene load_steps=7 format=3 uid="uid://q67b1f5uuoha"]
 
 [ext_resource type="Script" uid="uid://dcbwj3mc75n72" path="res://scenes/world/world.gd" id="1_evtuc"]
 [ext_resource type="PackedScene" uid="uid://1rrvx57k2cva" path="res://scenes/player/player.tscn" id="2_myojr"]
 [ext_resource type="PackedScene" uid="uid://dwal5ust4jb7m" path="res://scenes/dangers/spikes/spikes.tscn" id="3_1fp7r"]
 [ext_resource type="PackedScene" uid="uid://ibkbt6ci18f8" path="res://scenes/collectibles/heart/heart.tscn" id="4_6m72w"]
+[ext_resource type="PackedScene" uid="uid://romfrcc8qrho" path="res://scenes/ui/level/level_completed.tscn" id="5_v5dby"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_myojr"]
 size = Vector2(13, 41)
@@ -69,3 +70,8 @@ position = Vector2(257, 17)
 
 [node name="Heart6" parent="Collectibles" instance=ExtResource("4_6m72w")]
 position = Vector2(334, 55)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LevelCompleted" parent="CanvasLayer" instance=ExtResource("5_v5dby")]
+visible = false
