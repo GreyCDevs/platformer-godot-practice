@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyote_jump_timer: Timer = $CoyoteJumpTimer
+@onready var starting_position = global_position
 
 var air_jump: bool = false
 var just_wall_jumped := false
@@ -93,4 +94,4 @@ func handle_character_orientation (input_axis: float) -> void:
 
 
 func _on_hazard_detector_area_entered(area: Area2D) -> void:
-	queue_free()
+	global_position = starting_position
