@@ -3,9 +3,21 @@ extends Node2D
 @export var next_level: PackedScene
 
 @onready var level_completed: ColorRect = $CanvasLayer/LevelCompleted
+@onready var start_in: ColorRect = %StartIn
+@onready var start_in_label: Label = %StartInLabel
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	Events.level_completed.connect(show_level_completed)
+	get_tree().paused = true
+	animation_player.play("countdown")
+	await get_tree().create_timer(3.0).timeout
+	start_in_label.hide()
+	get_tree().paused = false
+	animation_player.play("hide_start_label")
+	if animation_player.animation_finished:
+		start_in.hide()
+	
 	
 func show_level_completed() -> void:
 	level_completed.show()
