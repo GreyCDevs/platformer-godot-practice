@@ -5,12 +5,14 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyote_jump_timer: Timer = $CoyoteJumpTimer
 
+var air_jump: bool = false
+
 func _physics_process(delta: float) -> void:
 	var input_axis := Input.get_axis("ui_left", "ui_right")
 	
 	apply_gravity(delta)
 	handle_jump()
-	handle_movement(input_axis)
+	handle_movement(input_axis, delta)
 	update_animations(input_axis)
 	var was_on_floor = is_on_floor()
 	move_and_slide()
@@ -24,29 +26,40 @@ func apply_gravity(delta: float) -> void:
 		velocity += get_gravity() * movement_data.gravity_scale * delta
 
 func handle_jump() -> void:
+	if is_on_floor(): 
+		air_jump = true
 	if is_on_floor() or coyote_jump_timer.time_left > 0.0: 
 		if Input.is_action_just_pressed("ui_up"):
 			velocity.y = movement_data.jump_velocity 
 	if not is_on_floor():
 		if  (Input.is_action_just_released("ui_up") and velocity.y < movement_data.jump_velocity / 2):
 			velocity.y = movement_data.jump_velocity / 2		
+	if Input.is_action_just_pressed("ui_up") and not is_on_floor() and air_jump:
+		air_jump = false
+		velocity.y = movement_data.jump_velocity * 0.8
+	
+	
+func handle_movement(input_axis: float, delta: float) -> void:
+	handle_acceleration(input_axis, delta)
+	handle_air_acceleration(input_axis, delta)
+	apply_friction(input_axis, delta)
+	apply_air_resistance(input_axis, delta)
 
-func handle_movement(input_axis: float) -> void:
-	handle_acceleration(input_axis)
-	apply_friction(input_axis)
-	apply_air_resistance(input_axis)
-
-func apply_friction(input_axis: float) -> void:
+func apply_friction(input_axis: float, delta: float) -> void:
 	if input_axis == 0 and is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, movement_data.friction)
+		velocity.x = move_toward(velocity.x, 0, movement_data.friction * delta)
 
-func apply_air_resistance(input_axis: float) -> void:
+func apply_air_resistance(input_axis: float, delta: float) -> void:
 	if input_axis == 0 and not is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance)
+		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance * delta)
 
-func handle_acceleration(input_axis: float) -> void:
-	if input_axis == 0: return
-	velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration)
+func handle_acceleration(input_axis: float, delta: float) -> void:
+	if input_axis == 0 or not is_on_floor(): return
+	velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration * delta)
+
+func handle_air_acceleration(input_axis: float, delta: float) -> void:
+	if is_on_floor(): return
+	velocity.x = move_toward(velocity.x, movement_data.speed * input_axis,movement_data.air_acceleration * delta)
 
 func update_animations(input_axis: float) -> void:
 	if input_axis != 0:
