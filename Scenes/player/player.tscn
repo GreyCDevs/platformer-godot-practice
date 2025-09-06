@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://1rrvx57k2cva"]
 
-[ext_resource type="Script" uid="uid://c1ojh4klimek5" path="res://Scenes/player/player.gd" id="1_eo61r"]
-[ext_resource type="Texture2D" uid="uid://bmnekjnrvdpko" path="res://Scenes/player/player.png" id="2_eo61r"]
-[ext_resource type="Resource" uid="uid://7l8un81kpk71" path="res://Scenes/player/DefaultMovementData.tres" id="2_mxepk"]
+[ext_resource type="Script" uid="uid://c1ojh4klimek5" path="res://scenes/player/player.gd" id="1_eo61r"]
+[ext_resource type="Texture2D" uid="uid://bmnekjnrvdpko" path="res://resources/images/character/player.png" id="2_eo61r"]
+[ext_resource type="Resource" uid="uid://7l8un81kpk71" path="res://scenes/player/DefaultMovementData.tres" id="2_mxepk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eo61r"]
 atlas = ExtResource("2_eo61r")
@@ -100,7 +100,6 @@ animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
 position = Vector2(0, -30)
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, -0.0714254)
@@ -109,4 +108,4 @@ shape = SubResource("RectangleShape2D_kf5c0")
 script = SubResource("GDScript_mxepk")
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.1

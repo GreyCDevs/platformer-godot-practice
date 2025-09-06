@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://q67b1f5uuoha"]
 
-[ext_resource type="Script" uid="uid://dcbwj3mc75n72" path="res://Scenes/world/world.gd" id="1_evtuc"]
-[ext_resource type="PackedScene" uid="uid://1rrvx57k2cva" path="res://Scenes/player/player.tscn" id="2_myojr"]
+[ext_resource type="Script" uid="uid://dcbwj3mc75n72" path="res://scenes/world/world.gd" id="1_evtuc"]
+[ext_resource type="PackedScene" uid="uid://1rrvx57k2cva" path="res://scenes/player/player.tscn" id="2_myojr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_myojr"]
 size = Vector2(13, 41)
