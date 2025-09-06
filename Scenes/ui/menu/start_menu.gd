@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func _on_start_game_button_pressed() -> void:
 	await LevelTransition.fade_to_black()
-	get_tree().change_scene_to_file("res://scenes/world/level_three.tscn")
+	get_tree().change_scene_to_file("res://scenes/world/level_one.tscn")
 	LevelTransition.fade_from_black()
 
 func _on_quit_game_button_pressed() -> void:
